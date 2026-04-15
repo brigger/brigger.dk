@@ -113,6 +113,7 @@
   /* ------------ Photo gallery ------------ */
   const grid = document.getElementById('photoGrid');
   const placeholder = document.getElementById('photoPlaceholder');
+  const photos = []; // {full, alt} — populated from manifest, shared with lightbox
 
   fetch('photos/manifest.json', { cache: 'no-cache' })
     .then(r => { if (!r.ok) throw new Error('no manifest'); return r.json(); })
@@ -120,35 +121,67 @@
       const list = Array.isArray(data) ? data : (data.photos || []);
       if (list.length === 0) return;
       placeholder.classList.add('hidden');
-      list.forEach(item => {
-        const src = typeof item === 'string' ? item : item.src;
-        const alt = typeof item === 'string' ? '' : (item.alt || '');
+      list.forEach((item, i) => {
+        const src   = typeof item === 'string' ? item : item.src;
+        const thumb = typeof item === 'string' ? item : (item.thumb || item.src);
+        const alt   = typeof item === 'string' ? '' : (item.alt || '');
+        photos.push({ full: 'photos/' + src, alt });
         const img = document.createElement('img');
-        img.src = 'photos/' + src;
+        img.src = 'photos/' + thumb;
         img.alt = alt;
         img.loading = 'lazy';
-        img.addEventListener('click', () => openLightbox(img.src, alt));
+        img.decoding = 'async';
+        img.addEventListener('click', () => openLightbox(i));
         grid.appendChild(img);
       });
     })
     .catch(() => { /* placeholder stays */ });
 
 
-  /* ------------ Lightbox ------------ */
+  /* ------------ Lightbox with prev/next ------------ */
   let lightbox = document.getElementById('lightbox');
   if (!lightbox) {
     lightbox = document.createElement('div');
     lightbox.id = 'lightbox';
+    lightbox.innerHTML = `
+      <button type="button" class="lb-btn lb-prev" aria-label="Previous photo">‹</button>
+      <img alt="">
+      <button type="button" class="lb-btn lb-next" aria-label="Next photo">›</button>
+      <button type="button" class="lb-btn lb-close" aria-label="Close">×</button>
+    `;
     document.body.appendChild(lightbox);
-    lightbox.addEventListener('click', () => lightbox.classList.remove('visible'));
   }
-  function openLightbox(src, alt) {
-    lightbox.innerHTML = '';
-    const img = document.createElement('img');
-    img.src = src; img.alt = alt;
-    lightbox.appendChild(img);
+  const lbImg   = lightbox.querySelector('img');
+  const lbPrev  = lightbox.querySelector('.lb-prev');
+  const lbNext  = lightbox.querySelector('.lb-next');
+  const lbClose = lightbox.querySelector('.lb-close');
+  let lbIndex = 0;
+
+  function showPhoto(i) {
+    if (photos.length === 0) return;
+    lbIndex = (i + photos.length) % photos.length;
+    const p = photos[lbIndex];
+    lbImg.src = p.full;
+    lbImg.alt = p.alt;
+  }
+  function openLightbox(i) {
+    showPhoto(i);
     lightbox.classList.add('visible');
   }
+  function closeLightbox() { lightbox.classList.remove('visible'); }
+
+  lbPrev.addEventListener('click',  (e) => { e.stopPropagation(); showPhoto(lbIndex - 1); });
+  lbNext.addEventListener('click',  (e) => { e.stopPropagation(); showPhoto(lbIndex + 1); });
+  lbClose.addEventListener('click', (e) => { e.stopPropagation(); closeLightbox(); });
+  lbImg.addEventListener('click',   (e) => e.stopPropagation());
+  lightbox.addEventListener('click', closeLightbox); // click on backdrop closes
+
+  window.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('visible')) return;
+    if (e.key === 'ArrowLeft')  { e.preventDefault(); showPhoto(lbIndex - 1); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); showPhoto(lbIndex + 1); }
+    if (e.key === 'Escape')     { e.preventDefault(); closeLightbox(); }
+  });
 
 
   /* ------------ Reveal on scroll ------------ */
