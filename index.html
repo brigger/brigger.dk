@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>brigger.dk — A gift for Yannick</title>
+  <meta name="description" content="A little corner of the internet, wrapped up with love. brigger.dk is Yannick Brigger's own domain — a birthday present from Papa.">
+  <meta name="theme-color" content="#0b0b1f">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%81%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,700&family=Inter:wght@400;500;600&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- =========================================================
+       SCENE 1 — The gift box (intro)
+       ========================================================= -->
+  <section id="gift-scene" aria-label="A gift to unwrap">
+    <div class="stars" aria-hidden="true"></div>
+
+    <div class="gift-stage">
+      <div class="tag" aria-hidden="true">
+        <span class="tag-line">To: <strong>Yannick</strong></span>
+        <span class="tag-line">From: Papa</span>
+      </div>
+
+      <div class="gift-box" id="giftBox" role="button" tabindex="0"
+           aria-label="Tap to unwrap your birthday present">
+        <div class="box-lid">
+          <div class="ribbon-h"></div>
+        </div>
+        <div class="box-body">
+          <div class="ribbon-v"></div>
+          <div class="ribbon-h"></div>
+        </div>
+        <div class="bow">
+          <span class="bow-left"></span>
+          <span class="bow-right"></span>
+          <span class="bow-knot"></span>
+        </div>
+        <div class="glow" aria-hidden="true"></div>
+      </div>
+
+      <p class="unwrap-hint">🎁 Tap to unwrap 🎁</p>
+    </div>
+
+    <canvas id="confetti" aria-hidden="true"></canvas>
+  </section>
+
+
+  <!-- =========================================================
+       SCENE 2 — The site itself (revealed after unwrap)
+       ========================================================= -->
+  <main id="site" aria-hidden="true">
+
+    <!-- Hero -->
+    <header class="hero">
+      <div class="hero-inner">
+        <p class="kicker">brigger.dk presents</p>
+        <h1>
+          <span class="wish" id="wish">Happy Birthday</span><span class="wish-comma">,</span><br>
+          <span class="name">Yannick!</span>
+        </h1>
+        <p class="sub">A tiny corner of the internet, wrapped up and handed to you with love. <br>Do whatever you want with it — it's yours. 💙</p>
+        <a class="scroll-cue" href="#about" aria-label="Scroll for more">
+          <span></span>
+        </a>
+      </div>
+    </header>
+
+    <!-- About / fun facts -->
+    <section class="section about" id="about">
+      <h2>Things the world should know about the birthday kid</h2>
+      <div class="cards">
+        <article class="card reveal"><span class="emoji">🇨🇭🇺🇸</span><h3>Swiss &amp; American</h3><p>One passport wasn't enough.</p></article>
+        <article class="card reveal"><span class="emoji">🎓</span><h3>Master of Arts in Law &amp; Economics</h3><p>University of St. Gallen. Yes, <em>that</em> HSG.</p></article>
+        <article class="card reveal"><span class="emoji">🇩🇰</span><h3>Lives in Copenhagen</h3><p>Mathildevej 16A — practising his Danish on unsuspecting locals.</p></article>
+        <article class="card reveal"><span class="emoji">🗣️</span><h3>Speaks 5 languages</h3><p>German, English, French, Spanish, and a brave amount of Danish.</p></article>
+        <article class="card reveal"><span class="emoji">🎾</span><h3>Tennis coach since 2015</h3><p>Eight years teaching kids (and a 45+ women's team) the backhand.</p></article>
+        <article class="card reveal"><span class="emoji">⛷️</span><h3>Ski fanatic</h3><p>Will find snow anywhere. Will drive hours for it.</p></article>
+        <article class="card reveal"><span class="emoji">⛵</span><h3>Sailor</h3><p>Wind, water, sails — happy place.</p></article>
+        <article class="card reveal"><span class="emoji">🎹</span><h3>Pianist</h3><p>Has been known to fill a room with music.</p></article>
+        <article class="card reveal"><span class="emoji">🌱</span><h3>Founder's Associate @ mympact</h3><p>Helped scale it to CHF 850k and 10k users. Casual.</p></article>
+        <article class="card reveal"><span class="emoji">🎭</span><h3>Founded the Cabaret Card of Lucerne</h3><p>Because cabaret in Lucerne needed its own loyalty card. Obviously.</p></article>
+        <article class="card reveal"><span class="emoji">⚖️</span><h3>Also a Bachelor of Law</h3><p>In case the Master's wasn't enough.</p></article>
+        <article class="card reveal"><span class="emoji">💙</span><h3>A really good son</h3><p>This one is from Papa. No notes.</p></article>
+      </div>
+    </section>
+
+    <!-- Photos -->
+    <section class="section gallery" id="gallery">
+      <h2>A few favourite moments</h2>
+      <p class="gallery-sub">Papa's still picking the best ones. Check back soon.</p>
+      <div class="photo-grid" id="photoGrid">
+        <!-- filled by script.js from photos/manifest.json -->
+      </div>
+      <div class="photo-placeholder" id="photoPlaceholder">
+        <span class="ph-emoji">📸</span>
+        <p>Photos incoming. Papa is currently buried in a pile of hard drives.</p>
+      </div>
+    </section>
+
+    <!-- Adventures timeline -->
+    <section class="section timeline-wrap" id="adventures">
+      <h2>Adventures so far</h2>
+      <p class="timeline-sub">A very incomplete chronology, told in emojis.</p>
+      <ol class="timeline">
+        <li class="reveal"><span class="yr">2010</span><h3>📚 Kantonsschule Reussbühl</h3><p>The Swiss adventure begins in earnest.</p></li>
+        <li class="reveal"><span class="yr">2014</span><h3>🇫🇷 Lycée Jean-Piaget, Neuchâtel</h3><p>French intensifies.</p></li>
+        <li class="reveal"><span class="yr">2015</span><h3>🎾 First tennis coaching gig</h3><p>TC Littau. A generation of junior players begins.</p></li>
+        <li class="reveal"><span class="yr">2016</span><h3>🇪🇸 Madrid — Estudio Sampere</h3><p>Spanish B1. ¡Vamos!</p></li>
+        <li class="reveal"><span class="yr">2017</span><h3>⚖️ BLaw @ Universität Zürich</h3><p>Law school. Also: Swiss Armed Forces recruit.</p></li>
+        <li class="reveal"><span class="yr">2018</span><h3>🎭 Founded Carta Cultura</h3><p>Cabaret Card of Lucerne. 200+ customers.</p></li>
+        <li class="reveal"><span class="yr">2019</span><h3>📖 getAbstract Internship</h3><p>Two customer contracts worth CHF 10k+. Papa was pleased.</p></li>
+        <li class="reveal"><span class="yr">2021</span><h3>🎓 MLE @ HSG</h3><p>Law meets economics meets entrepreneurship.</p></li>
+        <li class="reveal"><span class="yr">2022</span><h3>🌱 mympact — Founder's Associate</h3><p>From CO₂ tracker to sustainable e-marketplace.</p></li>
+        <li class="reveal"><span class="yr">2022</span><h3>🏛️ VP of Industrial Club HSG</h3><p>Fastest-growing student club on campus.</p></li>
+        <li class="reveal"><span class="yr">2024</span><h3>🇩🇰 Copenhagen move</h3><p>Mympact, København, Mathildevej. A new chapter.</p></li>
+        <li class="reveal"><span class="yr">202?</span><h3>✨ Whatever you make of brigger.dk</h3><p>That part is up to you.</p></li>
+      </ol>
+    </section>
+
+    <!-- CV section -->
+    <section class="section cv" id="cv">
+      <h2>The official version</h2>
+      <p>Prefer your birthday presents in PDF format? Here's the full CV.</p>
+      <div class="cv-actions">
+        <a class="btn primary" href="YannickBriggerResume.pdf" target="_blank" rel="noopener">Open the CV ↗</a>
+        <a class="btn ghost" href="YannickBriggerResume.pdf" download>Download</a>
+      </div>
+    </section>
+
+    <!-- Note from Papa -->
+    <section class="section note" id="note">
+      <div class="note-card">
+        <h2>A note from Papa</h2>
+        <p>Yannick,</p>
+        <p>
+          This little domain is a birthday gift, but really it's a promise:
+          that whatever you build next — a portfolio, a blog, a startup,
+          a crazy side project at 2 a.m. on a Tuesday — you have a home on
+          the web with <em>your name on the door</em>.
+        </p>
+        <p>
+          Use it. Break it. Rebuild it. Make it weird, make it beautiful,
+          make it something only you would dream up. I'll be cheering
+          from wherever I am.
+        </p>
+        <p>
+          Happy Birthday, son. I'm proud of you every single day.
+        </p>
+        <p class="sig">— Papa 💙</p>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p><strong>brigger.dk</strong> · built with love in 2026 · 🎁</p>
+      <p class="tiny">Psst — try the Konami code.</p>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
