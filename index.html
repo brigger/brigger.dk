@@ -60,7 +60,7 @@
       <div class="hero-inner">
         <p class="kicker">brigger.dk presents</p>
         <h1>
-          <span class="wish" id="wish">Happy Birthday</span><span class="wish-comma">,</span><br>
+          <span class="wish" id="wish">Happy Birthday</span><br>
           <span class="name">Yannick!</span>
         </h1>
         <p class="sub">A tiny corner of the internet, wrapped up and handed to you with love. <br>Do whatever you want with it — it's yours. 💙</p>
@@ -85,7 +85,7 @@
         <article class="card reveal"><span class="emoji">🌱</span><h3>Founder's Associate @ mympact</h3><p>Helped scale it to CHF 850k and 10k users. Casual.</p></article>
         <article class="card reveal"><span class="emoji">🎯</span><h3>GTM Lead @ Pandektes</h3><p>From SDR to Account Executive to GTM Lead in 19 months. The legal research platform of the future — and Yannick's helping the world find it.</p></article>
         <article class="card reveal"><span class="emoji">🎭</span><h3>Founded the Cabaret Card of Lucerne</h3><p>Because cabaret in Lucerne needed its own loyalty card. Obviously.</p></article>
-        <article class="card reveal"><span class="emoji">⚖️</span><h3>Also a Bachelor of Law</h3><p>In case the Master's wasn't enough.</p></article>
+        <article class="card reveal"><span class="emoji">⚖️</span><h3>Also a Bachelor of Law from University of Zürich</h3><p>As if HSG wasn't enough.</p></article>
         <article class="card reveal"><span class="emoji">💙</span><h3>A really good son</h3><p>This one is from Dad. No notes.</p></article>
       </div>
     </section>
@@ -94,12 +94,15 @@
     <section class="section gallery" id="gallery">
       <h2>A few favourite moments</h2>
       <p class="gallery-sub">A lifetime of you, scrolling past. Tap any photo to open it.</p>
-      <div class="photo-grid" id="photoGrid">
+      <div class="photo-grid" id="photoGrid" data-limit="20">
         <!-- filled by script.js from photos/manifest.json -->
       </div>
       <div class="photo-placeholder" id="photoPlaceholder">
         <span class="ph-emoji">📸</span>
         <p>Photos incoming. Dad is currently buried in a pile of hard drives.</p>
+      </div>
+      <div class="gallery-cta" id="galleryCta" hidden>
+        <a class="btn primary" href="gallery.html">See all photos →</a>
       </div>
     </section>
 
@@ -161,6 +164,7 @@
 
     <footer class="footer">
       <p><strong>brigger.dk</strong> · built with love in 2026 · 🎁</p>
+      <p><a href="gallery.html">📷 Full photo gallery</a></p>
       <p class="tiny">Psst — try the Konami code.</p>
     </footer>
   </main>

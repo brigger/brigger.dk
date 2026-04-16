@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>brigger.dk — A gift for Yannick</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;0,900;1,900&family=Inter:wght@400;500;600&family=Caveat:wght@500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  /* ------------ A5 page geometry ------------ */
+  @page {
+    size: A5 portrait;
+    margin: 0;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    font-family: "Inter", system-ui, sans-serif;
+    color: #f6f3ea;
+  }
+
+  .card {
+    width: 148mm;
+    height: 210mm;
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(100mm 70mm at 50% 30%, rgba(239,71,111,0.30), transparent 60%),
+      radial-gradient(100mm 70mm at 80% 90%, rgba(76,201,240,0.22), transparent 60%),
+      radial-gradient(100mm 70mm at 20% 90%, rgba(255,209,102,0.15), transparent 60%),
+      linear-gradient(180deg, #140a30 0%, #1b1340 55%, #0b0b1f 100%);
+    padding: 14mm 12mm;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  /* Stars */
+  .stars {
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 12% 18%, #fff, transparent),
+      radial-gradient(1px 1px at 30% 68%, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 72% 38%, #fff, transparent),
+      radial-gradient(1px 1px at 86% 82%, #fff, transparent),
+      radial-gradient(1px 1px at 56% 12%, #fff, transparent),
+      radial-gradient(1.2px 1.2px at 44% 48%, #fff, transparent),
+      radial-gradient(1px 1px at 92% 28%, #fff, transparent),
+      radial-gradient(1.4px 1.4px at 18% 52%, #fff, transparent);
+    opacity: 0.55;
+    pointer-events: none;
+  }
+
+  .content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    width: 100%;
+  }
+
+  .kicker {
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    font-size: 9pt;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: #ffd166;
+    margin: 0;
+  }
+  .gift-emoji {
+    font-size: 28pt;
+    line-height: 1;
+    margin: 4mm 0 2mm;
+  }
+
+  h1 {
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 900;
+    line-height: 1.05;
+    margin: 0;
+    font-size: 20pt;
+    color: #ffd166;
+  }
+  .name {
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 900;
+    font-style: italic;
+    font-size: 40pt;
+    line-height: 1;
+    margin: 3mm 0 0;
+    color: #f6f3ea;
+  }
+
+  .sub {
+    font-family: "Inter", sans-serif;
+    font-size: 10pt;
+    line-height: 1.5;
+    color: #cfc9d9;
+    max-width: 110mm;
+    margin: 7mm 0 0;
+  }
+
+  .url-plate {
+    margin: 8mm 0 4mm;
+    padding: 4mm 8mm;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 209, 102, 0.5);
+    border-radius: 4mm;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-weight: 500;
+    font-size: 16pt;
+    color: #ffd166;
+    letter-spacing: 0.02em;
+  }
+
+  .qr {
+    width: 48mm;
+    height: 48mm;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .qr svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    shape-rendering: crispEdges;
+  }
+  .qr-hint {
+    margin: 2mm 0 0;
+    font-family: "Inter", sans-serif;
+    font-size: 8pt;
+    color: #cfc9d9;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .spacer { flex: 1; }
+
+  .note {
+    font-family: "Caveat", cursive;
+    font-size: 18pt;
+    line-height: 1.25;
+    color: #f6f3ea;
+    max-width: 110mm;
+    margin: 6mm 0 0;
+  }
+  .sig {
+    font-family: "Caveat", cursive;
+    font-weight: 700;
+    font-size: 22pt;
+    color: #ffd166;
+    margin: 3mm 0 0;
+  }
+
+  .footer {
+    position: absolute;
+    bottom: 5mm;
+    left: 0; right: 0;
+    font-family: "Inter", sans-serif;
+    font-size: 7pt;
+    color: rgba(207, 201, 217, 0.55);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="stars"></div>
+    <div class="content">
+      <p class="kicker">brigger.dk presents</p>
+      <div class="gift-emoji">🎁</div>
+      <h1>Tillykke med<br>fødselsdagen,</h1>
+      <p class="name">Yannick</p>
+
+      <div class="url-plate">brigger.dk</div>
+
+      <div class="qr"><!--QR_CODE--></div>
+      <p class="qr-hint">scan to unwrap</p>
+
+      <div class="spacer"></div>
+
+      <p class="note">
+        Whatever you build next — a portfolio, a blog,<br>
+        a 2&nbsp;a.m. side project — you have a home on<br>
+        the web with <em>your name on the door</em>.
+      </p>
+      <p class="sig">— Dad ❤️</p>
+    </div>
+    <p class="footer">with love · 2026</p>
+  </div>
+</body>
+</html>

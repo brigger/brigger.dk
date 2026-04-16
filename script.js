@@ -23,27 +23,33 @@
     }, 900);
     setTimeout(() => { giftScene.remove(); }, 1800);
   }
-  giftBox.addEventListener('click', openGift);
-  giftBox.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openGift(); }
-  });
-  document.body.style.overflow = 'hidden';
+  if (giftBox) {
+    giftBox.addEventListener('click', openGift);
+    giftBox.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openGift(); }
+    });
+    document.body.style.overflow = 'hidden';
+  }
 
 
   /* ------------ Confetti burst ------------ */
   const canvas = document.getElementById('confetti');
-  const ctx = canvas.getContext('2d');
+  const ctx = canvas ? canvas.getContext('2d') : null;
   function sizeCanvas() {
+    if (!canvas) return;
     canvas.width  = canvas.offsetWidth  * devicePixelRatio;
     canvas.height = canvas.offsetHeight * devicePixelRatio;
   }
-  sizeCanvas();
-  window.addEventListener('resize', sizeCanvas);
+  if (canvas) {
+    sizeCanvas();
+    window.addEventListener('resize', sizeCanvas);
+  }
 
   const colors = ['#ffd166', '#ef476f', '#06d6a0', '#4cc9f0', '#fff8ec', '#f78fb3'];
   let pieces = [];
 
   function burstConfetti() {
+    if (!canvas) return;
     const cx = canvas.width / 2;
     const cy = canvas.height / 2;
     const n = 160;
@@ -121,7 +127,9 @@
       const list = Array.isArray(data) ? data : (data.photos || []);
       if (list.length === 0) return;
       placeholder.classList.add('hidden');
-      list.forEach((item, i) => {
+      const limit = parseInt(grid.dataset.limit || '0', 10);
+      const shown = limit > 0 ? list.slice(0, limit) : list;
+      shown.forEach((item, i) => {
         const src   = typeof item === 'string' ? item : item.src;
         const thumb = typeof item === 'string' ? item : (item.thumb || item.src);
         const alt   = typeof item === 'string' ? '' : (item.alt || '');
@@ -134,6 +142,14 @@
         img.addEventListener('click', () => openLightbox(i));
         grid.appendChild(img);
       });
+      if (list.length > shown.length) {
+        const cta = document.getElementById('galleryCta');
+        if (cta) {
+          cta.hidden = false;
+          const link = cta.querySelector('a');
+          if (link) link.textContent = `See all ${list.length} photos →`;
+        }
+      }
     })
     .catch(() => { /* placeholder stays */ });
 
@@ -213,6 +229,7 @@
   });
 
   function partyMode() {
+    if (!canvas) return;
     // Make sure the canvas is on top for the party
     canvas.style.position = 'fixed';
     canvas.style.inset = 0;

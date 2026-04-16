@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Photo Gallery — brigger.dk</title>
+  <meta name="description" content="Every photo, in no particular order. A gift for Yannick from Dad.">
+  <meta name="theme-color" content="#0b0b1f">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%B7%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="gallery-page">
+
+  <header class="gallery-header">
+    <a href="index.html" class="back-link">← Back to brigger.dk</a>
+    <h1>Photo Gallery</h1>
+    <p class="sub">Every photo, in no particular order.</p>
+  </header>
+
+  <main>
+    <div class="photo-grid" id="photoGrid">
+      <!-- filled by script.js from photos/manifest.json -->
+    </div>
+    <div class="photo-placeholder" id="photoPlaceholder">
+      <span class="ph-emoji">📸</span>
+      <p>No photos yet.</p>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
