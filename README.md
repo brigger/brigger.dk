@@ -5,7 +5,7 @@ no backend, no dependencies beyond the Google Fonts CDN.
 
 The site opens with a gift-box unwrap animation, then reveals a cheerful
 landing page with fun facts, a photo gallery, a timeline, his CV, and a
-note from Papa.
+note from Dad.
 
 ## Local preview
 

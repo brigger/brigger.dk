@@ -466,7 +466,7 @@ a  { color: var(--accent); }
 }
 .btn:hover { transform: translateY(-2px); }
 
-/* Note from Papa */
+/* Note from Dad */
 .note { max-width: 720px; }
 .note-card {
   background: linear-gradient(160deg, #fff8ec, #fbe7c6);
