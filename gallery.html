@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=2">
 </head>
 <body class="gallery-page">
 
@@ -21,15 +21,30 @@
   </header>
 
   <main>
-    <div class="photo-grid" id="photoGrid">
-      <!-- filled by script.js from photos/manifest.json -->
-    </div>
-    <div class="photo-placeholder" id="photoPlaceholder">
-      <span class="ph-emoji">📸</span>
-      <p>No photos yet.</p>
+    <div class="curtain-stage">
+      <div class="curtain" id="curtain" role="button" tabindex="0"
+           aria-label="Private gallery — tap to enter the password">
+        <div class="curtain-pelmet">
+          <span class="pelmet-title">🎭 Private Gallery 🎭</span>
+          <span class="pelmet-swag" aria-hidden="true"></span>
+        </div>
+        <div class="curtain-panel curtain-left"  aria-hidden="true"></div>
+        <div class="curtain-panel curtain-right" aria-hidden="true"></div>
+        <div class="curtain-placard">
+          <span class="placard-icon">🔒</span>
+          <span class="placard-text">Tap to enter the password</span>
+        </div>
+      </div>
+      <div class="photo-grid" id="photoGrid">
+        <!-- filled by script.js from photos/manifest.json -->
+      </div>
+      <div class="photo-placeholder" id="photoPlaceholder">
+        <span class="ph-emoji">📸</span>
+        <p>No photos yet.</p>
+      </div>
     </div>
   </main>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=2"></script>
 </body>
 </html>

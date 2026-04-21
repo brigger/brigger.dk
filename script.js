@@ -120,6 +120,20 @@
   const grid = document.getElementById('photoGrid');
   const placeholder = document.getElementById('photoPlaceholder');
   const photos = []; // {full, alt} — populated from manifest, shared with lightbox
+  let totalPhotos = 0;
+  let shownCount  = 0;
+
+  function updateGalleryCta() {
+    const cta = document.getElementById('galleryCta');
+    if (!cta) return;
+    if (isUnlocked() && totalPhotos > shownCount) {
+      cta.hidden = false;
+      const link = cta.querySelector('a');
+      if (link) link.textContent = `See all ${totalPhotos} photos →`;
+    } else {
+      cta.hidden = true;
+    }
+  }
 
   fetch('photos/manifest.json', { cache: 'no-cache' })
     .then(r => { if (!r.ok) throw new Error('no manifest'); return r.json(); })
@@ -129,6 +143,8 @@
       placeholder.classList.add('hidden');
       const limit = parseInt(grid.dataset.limit || '0', 10);
       const shown = limit > 0 ? list.slice(0, limit) : list;
+      totalPhotos = list.length;
+      shownCount  = shown.length;
       shown.forEach((item, i) => {
         const src   = typeof item === 'string' ? item : item.src;
         const thumb = typeof item === 'string' ? item : (item.thumb || item.src);
@@ -142,16 +158,123 @@
         img.addEventListener('click', () => openLightbox(i));
         grid.appendChild(img);
       });
-      if (list.length > shown.length) {
-        const cta = document.getElementById('galleryCta');
-        if (cta) {
-          cta.hidden = false;
-          const link = cta.querySelector('a');
-          if (link) link.textContent = `See all ${list.length} photos →`;
-        }
-      }
+      updateGalleryCta();
     })
     .catch(() => { /* placeholder stays */ });
+
+
+  /* ------------ Password curtain ------------
+     Client-side only — theatrical, not secure. Photos are on a public URL.
+     Password: "brigger.dk" (case-insensitive). Session-scoped unlock. */
+  const SECRET     = 'brigger.dk';
+  const UNLOCK_KEY = 'brigger.dk.unlocked';
+  function isUnlocked() {
+    try { return localStorage.getItem(UNLOCK_KEY) === '1'; } catch { return false; }
+  }
+  function setUnlocked() {
+    try { localStorage.setItem(UNLOCK_KEY, '1'); } catch {}
+  }
+
+  const curtains = Array.from(document.querySelectorAll('.curtain'));
+
+  // Password modal (created lazily, shared across pages)
+  let pwModal = null;
+  function ensurePasswordModal() {
+    if (pwModal) return pwModal;
+    pwModal = document.createElement('div');
+    pwModal.className = 'password-modal';
+    pwModal.setAttribute('aria-hidden', 'true');
+    pwModal.setAttribute('role', 'dialog');
+    pwModal.setAttribute('aria-labelledby', 'passwordTitle');
+    pwModal.innerHTML = `
+      <div class="password-card">
+        <button type="button" class="password-close" aria-label="Close">×</button>
+        <span class="password-icon" aria-hidden="true">🎭</span>
+        <h3 id="passwordTitle">Private Gallery</h3>
+        <p>Dad's little corner — enter the password to pull back the curtain.</p>
+        <form id="passwordForm" novalidate>
+          <input type="password" id="passwordInput" autocomplete="off"
+                 autocapitalize="none" spellcheck="false" placeholder="Password…">
+          <button type="submit" class="btn primary">Open the curtain</button>
+        </form>
+        <p class="password-error" id="passwordError" hidden>Not quite — try again.</p>
+        <p class="password-hint">Hint: it's the domain you're on.</p>
+      </div>
+    `;
+    document.body.appendChild(pwModal);
+
+    const form  = pwModal.querySelector('#passwordForm');
+    const input = pwModal.querySelector('#passwordInput');
+    const error = pwModal.querySelector('#passwordError');
+    const close = pwModal.querySelector('.password-close');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const value = (input.value || '').trim().toLowerCase();
+      if (value === SECRET) {
+        error.hidden = true;
+        closePasswordModal();
+        openCurtains({ animate: true });
+      } else {
+        error.hidden = false;
+        input.classList.remove('shake');
+        void input.offsetWidth; // restart animation
+        input.classList.add('shake');
+        input.select();
+      }
+    });
+    close.addEventListener('click', closePasswordModal);
+    pwModal.addEventListener('click', (e) => {
+      if (e.target === pwModal) closePasswordModal();
+    });
+    return pwModal;
+  }
+
+  function openPasswordModal() {
+    const m = ensurePasswordModal();
+    m.classList.add('visible');
+    m.setAttribute('aria-hidden', 'false');
+    const input = m.querySelector('#passwordInput');
+    const error = m.querySelector('#passwordError');
+    if (input) { input.value = ''; setTimeout(() => input.focus(), 50); }
+    if (error) error.hidden = true;
+  }
+  function closePasswordModal() {
+    if (!pwModal) return;
+    pwModal.classList.remove('visible');
+    pwModal.setAttribute('aria-hidden', 'true');
+  }
+
+  function openCurtains({ animate = true } = {}) {
+    setUnlocked();
+    curtains.forEach(c => {
+      if (animate) {
+        c.classList.add('opening');
+        setTimeout(() => c.classList.add('open'), 1900);
+      } else {
+        c.classList.add('open');
+      }
+    });
+    updateGalleryCta();
+  }
+
+  if (curtains.length) {
+    if (isUnlocked()) {
+      curtains.forEach(c => c.classList.add('open'));
+    } else {
+      curtains.forEach(c => {
+        c.addEventListener('click', openPasswordModal);
+        c.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openPasswordModal(); }
+        });
+      });
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && pwModal && pwModal.classList.contains('visible')) {
+          closePasswordModal();
+        }
+      });
+    }
+  }
 
 
   /* ------------ Lightbox with prev/next ------------ */

@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,700&family=Inter:wght@400;500;600&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=2">
 </head>
 <body>
 
@@ -94,12 +94,27 @@
     <section class="section gallery" id="gallery">
       <h2>A few favourite moments</h2>
       <p class="gallery-sub">A lifetime of you, scrolling past. Tap any photo to open it.</p>
-      <div class="photo-grid" id="photoGrid" data-limit="20">
-        <!-- filled by script.js from photos/manifest.json -->
-      </div>
-      <div class="photo-placeholder" id="photoPlaceholder">
-        <span class="ph-emoji">📸</span>
-        <p>Photos incoming. Dad is currently buried in a pile of hard drives.</p>
+      <div class="curtain-stage">
+        <div class="curtain" id="curtain" role="button" tabindex="0"
+             aria-label="Private gallery — tap to enter the password">
+          <div class="curtain-pelmet">
+            <span class="pelmet-title">🎭 Private Gallery 🎭</span>
+            <span class="pelmet-swag" aria-hidden="true"></span>
+          </div>
+          <div class="curtain-panel curtain-left"  aria-hidden="true"></div>
+          <div class="curtain-panel curtain-right" aria-hidden="true"></div>
+          <div class="curtain-placard">
+            <span class="placard-icon">🔒</span>
+            <span class="placard-text">Tap to enter the password</span>
+          </div>
+        </div>
+        <div class="photo-grid" id="photoGrid" data-limit="20">
+          <!-- filled by script.js from photos/manifest.json -->
+        </div>
+        <div class="photo-placeholder" id="photoPlaceholder">
+          <span class="ph-emoji">📸</span>
+          <p>Photos incoming. Dad is currently buried in a pile of hard drives.</p>
+        </div>
       </div>
       <div class="gallery-cta" id="galleryCta" hidden>
         <a class="btn primary" href="gallery.html">See all photos →</a>
@@ -169,6 +184,6 @@
     </footer>
   </main>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=2"></script>
 </body>
 </html>
